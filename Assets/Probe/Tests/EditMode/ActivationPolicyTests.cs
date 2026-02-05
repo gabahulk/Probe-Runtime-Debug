@@ -1,5 +1,6 @@
 using System.Collections;
 using NUnit.Framework;
+using Probe.Runtime.Core;
 using UnityEngine.TestTools;
 
 namespace Probe.Tests.EditMode
@@ -8,19 +9,53 @@ namespace Probe.Tests.EditMode
     {
         // A Test behaves as an ordinary method
         [Test]
-        public void ActivationPolicyTestsSimplePasses()
+        public void CheckPolicyReturnsTrueWhenOnDebugBuildAndIsEnabled()
         {
-            // Use the Assert class to test conditions
-        }
+            var policy = new ActivationPolicy(true, BuildTypes.Debug);
 
-        // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-        // `yield return null;` to skip a frame.
-        [UnityTest]
-        public IEnumerator ActivationPolicyTestsWithEnumeratorPasses()
+            var result = policy.Evaluate();
+            
+            Assert.IsTrue(result);
+        }
+        
+        [Test]
+        public void CheckPolicyReturnsFalseWhenOnReleaseBuildAndIsEnabledAndIsDevBuildOnlyIsTrue()
         {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
-            yield return null;
+            var policy = new ActivationPolicy(true, BuildTypes.Release);
+
+            var result = policy.Evaluate();
+            
+            Assert.IsFalse(result);
+        }
+        
+        [Test]
+        public void CheckPolicyReturnsFalseWhenIsEnabledIsFalseAndBuildIsDebug()
+        {
+            var policy = new ActivationPolicy(false, BuildTypes.Debug);
+
+            var result = policy.Evaluate();
+            
+            Assert.IsFalse(result);
+        }
+        
+        [Test]
+        public void CheckPolicyReturnsFalseWhenIsEnabledIsFalseAndBuildIsRelease()
+        {
+            var policy = new ActivationPolicy(false, BuildTypes.Release);
+
+            var result = policy.Evaluate();
+            
+            Assert.IsFalse(result);
+        }
+        
+        [Test]
+        public void CheckPolicyReturnsTrueWhenOnReleaseBuildAndIsEnabledAndIsDevBuildOnlyIsFalse()
+        {
+            var policy = new ActivationPolicy(true, BuildTypes.Release,false);
+
+            var result = policy.Evaluate();
+            
+            Assert.IsTrue(result);
         }
     }
 }
