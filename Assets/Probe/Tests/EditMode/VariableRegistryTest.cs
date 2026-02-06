@@ -99,15 +99,12 @@ public class VariableRegistryTest
     }
     
     [Test]
-    public void RegisterWrongType()
-    {
-        Assert.Ignore("TBD");
-    }
-    
-    
-    [Test]
     public void AccessVariableWithWrongName()
     {
-        Assert.Ignore("TBD");
+        var registry = new VariableRegistry();
+        
+        registry.Bools.TryGet("test_variable", out var result);
+        
+        Assert.AreEqual(null,result);
     }
 }
