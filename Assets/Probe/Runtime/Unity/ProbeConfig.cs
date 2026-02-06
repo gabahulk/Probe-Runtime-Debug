@@ -1,10 +1,11 @@
 using UnityEngine;
 
-namespace Runtime
+namespace Probe.Runtime.Unity
 {
-    public class DebugConfig : ScriptableObject
+    [CreateAssetMenu(fileName = "ProbeConfig", menuName = "Probe/Config", order = 1)]
+    public class ProbeConfig : ScriptableObject
     {
-        public bool enabledByDefault = true;
+        public bool isEnabled = true;
         public bool showOverlay = true;
         public bool enableConsole = true;
         public KeyCode toggleKey = KeyCode.F1;

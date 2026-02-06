@@ -1,15 +1,18 @@
+using Probe.Runtime.Unity;
+using UnityEngine;
+
 namespace Probe.Runtime.Core
 {
     public class ActivationPolicy
     {
-        private bool _isEnabled;
-        private BuildTypes _buildType;
-        private bool _isDevBuildOnly;
-        public ActivationPolicy(bool isEnabled, BuildTypes buildType, bool isDevBuildOnly = true)
+        private readonly bool _isEnabled;
+        private readonly BuildTypes _buildType;
+        private readonly bool _isDevBuildOnly;
+        public ActivationPolicy(ProbeConfig config, BuildTypes buildType)
         {
-            _isEnabled = isEnabled;
+            _isEnabled = config.isEnabled;
             _buildType = buildType;
-            _isDevBuildOnly = isDevBuildOnly;
+            _isDevBuildOnly = config.developmentBuildOnly;
         }
 
         public bool Evaluate()

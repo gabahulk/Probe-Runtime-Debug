@@ -1,6 +1,8 @@
 using System.Collections;
 using NUnit.Framework;
 using Probe.Runtime.Core;
+using Probe.Runtime.Unity;
+using UnityEngine;
 using UnityEngine.TestTools;
 
 namespace Probe.Tests.EditMode
@@ -11,7 +13,10 @@ namespace Probe.Tests.EditMode
         [Test]
         public void CheckPolicyReturnsTrueWhenOnDebugBuildAndIsEnabled()
         {
-            var policy = new ActivationPolicy(true, BuildTypes.Debug);
+            var config = ScriptableObject.CreateInstance<ProbeConfig>();
+            config.isEnabled = true;
+            config.developmentBuildOnly = true;
+            var policy = new ActivationPolicy(config, BuildTypes.Debug);
 
             var result = policy.Evaluate();
             
@@ -21,7 +26,10 @@ namespace Probe.Tests.EditMode
         [Test]
         public void CheckPolicyReturnsFalseWhenOnReleaseBuildAndIsEnabledAndIsDevBuildOnlyIsTrue()
         {
-            var policy = new ActivationPolicy(true, BuildTypes.Release);
+            var config = ScriptableObject.CreateInstance<ProbeConfig>();
+            config.isEnabled = true;
+            config.developmentBuildOnly = true;
+            var policy = new ActivationPolicy(config, BuildTypes.Release);
 
             var result = policy.Evaluate();
             
@@ -31,7 +39,11 @@ namespace Probe.Tests.EditMode
         [Test]
         public void CheckPolicyReturnsFalseWhenIsEnabledIsFalseAndBuildIsDebug()
         {
-            var policy = new ActivationPolicy(false, BuildTypes.Debug);
+            var config = ScriptableObject.CreateInstance<ProbeConfig>();
+            config.isEnabled = false;
+            config.developmentBuildOnly = true;
+            
+            var policy = new ActivationPolicy(config, BuildTypes.Debug);
 
             var result = policy.Evaluate();
             
@@ -41,7 +53,10 @@ namespace Probe.Tests.EditMode
         [Test]
         public void CheckPolicyReturnsFalseWhenIsEnabledIsFalseAndBuildIsRelease()
         {
-            var policy = new ActivationPolicy(false, BuildTypes.Release);
+            var config = ScriptableObject.CreateInstance<ProbeConfig>();
+            config.isEnabled = false;
+            config.developmentBuildOnly = true;
+            var policy = new ActivationPolicy(config, BuildTypes.Release);
 
             var result = policy.Evaluate();
             
@@ -51,7 +66,10 @@ namespace Probe.Tests.EditMode
         [Test]
         public void CheckPolicyReturnsTrueWhenOnReleaseBuildAndIsEnabledAndIsDevBuildOnlyIsFalse()
         {
-            var policy = new ActivationPolicy(true, BuildTypes.Release,false);
+            var config = ScriptableObject.CreateInstance<ProbeConfig>();
+            config.isEnabled = true;
+            config.developmentBuildOnly = false;
+            var policy = new ActivationPolicy(config, BuildTypes.Release);
 
             var result = policy.Evaluate();
             
