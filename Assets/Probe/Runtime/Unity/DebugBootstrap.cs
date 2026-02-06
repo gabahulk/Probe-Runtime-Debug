@@ -1,10 +1,8 @@
 using Probe.Runtime.Core;
 using Probe.Runtime.Core.Variables;
-using Probe.Runtime.Unity;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Runtime
+namespace Probe.Runtime.Unity
 {
     public class DebugBootstrap : MonoBehaviour
     {
