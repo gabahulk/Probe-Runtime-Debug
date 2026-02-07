@@ -382,6 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Probe.Example.Scripts.Spawner
   prefab: {fileID: 6228044172476391819, guid: 3f976435244d26749bb0365ca57e5450, type: 3}
   spawnInterval: 1
+  spawnSelfDestruct: 5
   enabledSpawning: 1
 --- !u!4 &927281416
 Transform:
@@ -566,6 +567,10 @@ PrefabInstance:
     - target: {fileID: 4311798287352021532, guid: 27d1db9f8e2dedd40994c91b52d5ac52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6914670143202146732, guid: 27d1db9f8e2dedd40994c91b52d5ac52, type: 3}
+      propertyPath: toggleKey
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
